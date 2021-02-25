@@ -1,11 +1,12 @@
 #!/bin/bash
 
 doscan() {
-	echo "Port scan started"
-	outfile="/srv/www/$(date +%m-%d-%Y_%H:%M:%S).html"
-  nmap -oX /tmp/scan.xml --stylesheet /usr/share/nmap/nmap.xsl -p${SCAN_PORTS} $HOST_LIST
+    echo "Port scan started"
+	outfile="/srv/www/$(date +%Y-%m-%d).html"
+    nmap -oX /tmp/scan.xml --stylesheet /usr/share/nmap/nmap.xsl -p${SCAN_PORTS} $HOST_LIST
 	xsltproc /tmp/scan.xml -o $outfile
 	echo "Report generated at $outfile"
+    touch /srv/www/index.html
 }
 
 [ $# -lt 1 ] && {
